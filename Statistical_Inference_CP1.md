@@ -75,6 +75,6 @@ hist(Simulation, probability = TRUE, breaks = 40, col = "red",
 lines(density(Simulation), lwd = 3, col = "black")
 ```
 
-![](Statistical_Inference_CP1_files/figure-html/p1_q3-1.png)<!-- -->
+![/figure-html/p1_q3-1.png](Statistical_Inference_CP1_files/figure-html/p1_q3-1.png)<!-- -->
   
 The distribution of averages of random sampled exponentials is like a normal distribution.  
