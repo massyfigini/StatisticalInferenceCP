@@ -222,7 +222,7 @@ qplot(supp, data = TG2, geom = "bar", weight = mean_of_len, facets = . ~
     xlab = "", ylab = "Tooth length")
 ```
 
-![](Statistical_Inference_CP2_files/figure-html/p2_q1_d-1.png)<!-- -->
+![](figure-html/p2_q1_d-1.png)
 
 The lenght seems correlated with dose quantity and, in part, with supplement type.  
 
