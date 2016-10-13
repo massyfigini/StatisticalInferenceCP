@@ -1,0 +1,105 @@
+---
+title: 'Statistical Inference Course Progect Part 2: Inferential Data Analysis'
+author: "Massimiliano Figini"
+date: "October 9, 2016"
+output: 
+  html_document: 
+    keep_md: yes
+geometry: margin=2cm
+---
+
+Analysis of the ToothGrowth data in the R datasets package.  
+The data are about response is the length of odontoblasts (cells responsible for tooth growth) in 60 guinea pigs. Each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods (orange juice or ascorbic acid).  
+
+&nbsp;
+
+```{r p2, results="hide", message=FALSE, warning=FALSE}
+# Basic settings and libraries
+knitr::opts_chunk$set(echo = TRUE, tidy.opts=list(width.cutoff=60), tidy=TRUE)
+library(pander)
+library(ggplot2)
+library(dplyr)
+library(datasets)   # load the data
+```
+  
+&nbsp;
+
+## QUESTION 1 and 2: Load the ToothGrowth data, perform some basic exploratory data analyses and provide a basic summary of the data.
+
+```{r p2_q1_a, results='asis'}
+# Show the table
+pandoc.table(ToothGrowth)
+```
+
+```{r p2_q1_b}
+ToothGrowth$dose <- as.factor(ToothGrowth$dose) # dose is factor
+str(ToothGrowth)  # Table variables
+```
+
+The variables are:  
+- len: the tooth length  
+- supp: the supplement type of vitamin C (VC is ascorbic acid, OJ is orange juice)  
+- dose: dose in milligrams/day of vitamin C 
+
+\newpage
+
+```{r p2_q1_c1}
+# Basic summary
+summary(ToothGrowth)
+```
+
+&nbsp;
+
+```{r p2_q1_c2}
+# Means for supplement type and dose
+TG <- tbl_df(ToothGrowth)
+TG2 <- summarize(group_by(TG, supp, dose), mean_of_len=mean(len))
+TG2
+```
+
+&nbsp;
+
+```{r p2_q1_d, fig.width=6, fig.height=3}
+# Basic exploratory graph
+qplot(supp, data=TG2, geom="bar", weight=mean_of_len, facets=.~dose, fill=supp, main='Mean of tooth lenght for supplement type and quantity', xlab='', ylab = 'Tooth length')
+```
+
+The lenght seems correlated with dose quantity and, in part, with supplement type.  
+
+\newpage
+
+
+## QUESTION 3: Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.
+
+We perform a first T-test with significance level of 5%, with this Null Hypotesis: *different supplement type hasn't effect with tooth growth*.
+
+```{r p2_q3_a}
+t.test(len ~ supp, data = ToothGrowth)
+```
+
+We can't reject null hypotesis because confidence interval contains zero.
+**We can't say that supplement types have significant impact on tooth growth**.
+
+&nbsp;
+
+Now we perform three tests with significance level of 5%, with this Null Hypotesis: *different dose hasn't effect with tooth growth*.
+
+```{r p2_q3_b}
+# dose = 2 vs dose = 0.5
+t.test(ToothGrowth$len[ToothGrowth$dose==2],  ToothGrowth$len[ToothGrowth$dose==0.5])
+# dose = 2 vs dose = 1
+t.test(ToothGrowth$len[ToothGrowth$dose==2], ToothGrowth$len[ToothGrowth$dose==1])
+# dose = 1 vs dose = 0.5
+t.test(ToothGrowth$len[ToothGrowth$dose==1], ToothGrowth$len[ToothGrowth$dose==0.5])
+```
+
+All three tests have confidence intervals that don't contains 0. This means that we can accept the null hypotesis.
+**Increasing the dose of vitamin C have impact on tooth growth.**
+
+&nbsp;&nbsp;
+
+## QUESTION 4: State your conclusions and the assumptions needed for your conclusions.
+
+We assume that the experiment was done with random assignment of guinea pigs and the sample is representative of the entire population. The variances are assumed to be different for the groups being compared.  
+If all the assumptions are true, we can say that increasing the dose of vitamin C have a significant impact on tooth growth of the pig: a higher dose level of vitamin C correspond to longer teeth.  
+We also can say that supplement types of vitamin C (orange juice or ascorbic acid) don't have significant impact on tooth growth.
