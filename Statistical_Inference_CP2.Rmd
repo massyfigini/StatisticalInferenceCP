@@ -1,5 +1,5 @@
 ---
-title: 'Statistical Inference Course Progect Part 2: Inferential Data Analysis'
+title: 'Statistical Inference Course Project Part 2: Inferential Data Analysis'
 author: "Massimiliano Figini"
 date: "October 9, 2016"
 output: 
