@@ -1,4 +1,4 @@
-# Statistical Inference Course Progect Part 2: Inferential Data Analysis
+# Statistical Inference Course Project Part 2: Inferential Data Analysis
 Massimiliano Figini  
 October 9, 2016  
 
