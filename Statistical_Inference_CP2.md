@@ -110,7 +110,7 @@ The variables are:
 - supp: the supplement type of vitamin C (VC is ascorbic acid, OJ is orange juice)  
 - dose: dose in milligrams/day of vitamin C 
 
-\newpage
+&nbsp;
 
 
 ```r
@@ -166,7 +166,7 @@ qplot(supp, data = TG2, geom = "bar", weight = mean_of_len, facets = . ~
 
 The lenght seems correlated with dose quantity and, in part, with supplement type.  
 
-\newpage
+&nbsp;
 
 
 ## QUESTION 3: Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose.
